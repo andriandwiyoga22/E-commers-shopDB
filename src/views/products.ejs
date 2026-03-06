@@ -1,70 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=iXgIlTTMZtTO&format=png&color=000000" type="image/x-icon">
+    <title>My Inventory | Seller Center</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .inventory-container {
+            max-width: 1000px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header & Navigation */
+        h1 {
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .nav-actions {
+            margin-bottom: 40px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-action {
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-add {
+            background-color: #adff2f;
+            color: black;
+        }
+
+        .btn-add:hover {
+            background-color: #81b201;
+            transform: translateY(-2px);
+        }
+
+        .btn-dash {
+            background-color: #808080;
+            color: white;
+        }
+
+        .btn-dash:hover {
+            background-color: #666;
+            transform: translateY(-2px);
+        }
+
+        /* Inventory Grid */
+        .inventory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .img-container {
+            height: 160px;
+            background: #f0f0f0;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Button Group inside card */
+        .card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .btn-detail {
+            text-decoration: none;
+            background-color: #f1f2f6;
+            color: #333;
+            padding: 8px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            width: 100%;
+            padding: 8px;
+            border-radius: 8px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .nav-actions {
+                width: 100%;
+            }
+
+            .btn-action {
+                flex: 1;
+                justify-content: center;
+                padding: 12px 10px;
+            }
+
+            .inventory-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                /* 2 kolom di HP */
+                gap: 15px;
+            }
+
+            .img-container {
+                height: 130px;
+            }
+
+            .card-content h3 {
+                font-size: 15px !important;
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; padding: 40px;">
+<body>
 
-    <div style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; align-items: center;">
-        
-        <h1 style="color: #333; margin-bottom: 20px;">My Inventory</h1>
-        
-        <div style="margin-bottom: 40px; display: flex; gap: 15px;">
-            <a href="/products/newProduct" 
-                onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='scale(1.05)'"
-                onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='scale(1)'"
-                style="text-decoration: none; background-color: greenyellow; padding: 10px 25px; border-radius: 8px; transition: 0.3s; color: black; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; align-items: center;">
-                + Tambah Produk Baru
-            </a>
-            <a href="/dashboard" 
-                onmouseover="this.style.backgroundColor='#666'"
-                onmouseout="this.style.backgroundColor='#808080'"
-                style="text-decoration: none; background-color: #808080; padding: 10px 25px; border-radius: 8px; transition: 0.3s; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                Dashboard
-            </a>
+    <div class="inventory-container">
+
+        <h1>My Inventory</h1>
+
+        <div class="nav-actions">
+            <a href="/products/newProduct" class="btn-action btn-add">+ Tambah Produk</a>
+            <a href="/dashboard" class="btn-action btn-dash">Dashboard</a>
         </div>
 
-        <% if (products.length === 0) { %>
-            <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; width: 100%;">
-                <p style="color: #888; font-size: 18px;">Belum ada produk yang kamu jual.</p>
+        <% if (products.length===0) { %>
+            <div
+                style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; width: 100%; box-sizing: border-box;">
+                <p style="color: #888; font-size: 16px;">Belum ada produk yang kamu jual.</p>
             </div>
-        <% } %>
+            <% } %>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; width: 100%;">
-            <% products.forEach(product => { %>
-                <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: 0.3s; border: 1px solid #eee;">
-                    
-                    <div style="height: 180px; overflow: hidden; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
-                        <img src="<%= product.image %>" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
+                <div class="inventory-grid">
+                    <% products.forEach(product=> { %>
+                        <div class="product-card">
 
-                    <div style="padding: 20px; text-align: left;">
-                        <h3 style="margin: 0 0 10px 0; color: #333; font-size: 18px; height: 45px; overflow: hidden;"><%= product.name %></h3>
-                        <p style="margin: 0; color: #2ecc71; font-weight: bold; font-size: 20px;">$<%= product.price %></p>
-                        <p style="margin: 5px 0 15px 0; color: #7f8c8d; font-size: 14px;">Stok: <%= product.qty %></p>
-                        
-                        <div style="display: flex; flex-direction: column; gap: 8px;">
-                            <a href="/products/detailProduct/<%= product._id %>"
-                                style="text-decoration: none; background-color: #f1f2f6; color: #333; padding: 8px; text-align: center; border-radius: 6px; font-size: 14px; font-weight: 500; transition: 0.3s;">
-                                Lihat Detail
-                            </a>
-                            <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('Hapus produk ini?')">
-                                <button type="submit"
-                                    onmouseover="this.style.backgroundColor='#c0392b'"
-                                    onmouseout="this.style.backgroundColor='#e74c3c'"
-                                    style="background-color: #e74c3c; width: 100%; padding: 8px; border-radius: 6px; border: none; color: white; cursor: pointer; font-size: 14px; transition: 0.3s;">
-                                    Hapus Produk
-                                </button>
-                            </form>
+                            <div class="img-container">
+                                <img src="<%= product.image %>" alt="<%= product.name %>">
+                            </div>
+
+                            <div class="card-content" style="padding: 15px;">
+                                <h3
+                                    style="margin: 0 0 8px 0; color: #333; font-size: 16px; height: 40px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+                                    <%= product.name %>
+                                </h3>
+                                <p style="margin: 0; color: #2ecc71; font-weight: bold; font-size: 18px;">$<%=
+                                        product.price %>
+                                </p>
+                                <p style="margin: 4px 0 0 0; color: #7f8c8d; font-size: 12px;">Stok: <%= product.qty %>
+                                </p>
+
+                                <div class="card-actions">
+                                    <a href="/products/detailProduct/<%= product._id %>" class="btn-detail">Lihat
+                                        Detail</a>
+                                    <form action="/products/<%= product._id %>/delete" method="POST"
+                                        onsubmit="return confirm('Hapus produk ini?')">
+                                        <button type="submit" class="btn-delete">Hapus</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <% }) %>
                 </div>
-            <% }) %>
-        </div>
     </div>
 
 </body>

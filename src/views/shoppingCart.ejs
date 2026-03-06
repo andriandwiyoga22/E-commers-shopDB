@@ -1,75 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
-</head>
-<body style="font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 40px;">
+     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=iXgIlTTMZtTO&format=png&color=000000" type="image/x-icon">
+    <title>Keranjang Belanja | ShopDB</title>
+    <style>
+        /* Base Reset */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    <div style="max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h1 style="margin: 0; color: #333;">Shopping Cart 🛒</h1>
-            <a href="/" style="text-decoration: none; color: #888; font-size: 14px; font-weight: 500;">← Lanjut Belanja</a>
+        .cart-container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        /* Cart Item Row */
+        .cart-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            object-fit: cover;
+            background: #f9f9f9;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-details h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .item-price-info {
+            color: #888;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .item-total-price {
+            text-align: right;
+            min-width: 100px;
+        }
+
+        /* Checkout Section */
+        .checkout-box {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #fafafa;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            max-width: 300px;
+            background-color: #adff2f;
+            color: black;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(173, 255, 47, 0.3);
+        }
+
+        .btn-checkout:hover {
+            background-color: #81b201;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .cart-container { padding: 20px; }
+            
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                position: relative;
+            }
+
+            .cart-item img {
+                width: 100%;
+                height: 150px;
+            }
+
+            .item-total-price {
+                text-align: left;
+                width: 100%;
+                border-top: 1px dashed #eee;
+                padding-top: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .checkout-box {
+                align-items: center;
+            }
+
+            .btn-checkout { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1 style="margin: 0; font-size: 24px;">Shopping Cart 🛒</h1>
+            <a href="/" style="text-decoration: none; color: #81b201; font-weight: 600; font-size: 14px;">← Belanja Lagi</a>
         </div>
 
-        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 30px;">
-        
         <% if (!user.cart || user.cart.length === 0) { %>
-            <div style="text-align: center; padding: 50px 0;">
+            <div style="text-align: center; padding: 60px 0;">
                 <p style="color: #bbb; font-size: 18px;">Keranjang belanja Anda masih kosong.</p>
-                <a href="/" style="display: inline-block; margin-top: 15px; background: greenyellow; color: black; padding: 10px 25px; border-radius: 8px; text-decoration: none; font-weight: bold;">Cari Produk</a>
+                <a href="/" style="display: inline-block; margin-top: 15px; background: #adff2f; color: black; padding: 12px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">Cari Produk</a>
             </div>
         <% } else { %>
-            <div style="display: flex; flex-direction: column; gap: 20px;">
+            
+            <div class="cart-list">
                 <% user.cart.forEach(item => { %>
                     <% if (item.productId) { %>
-                        <div style="display: flex; gap: 20px; padding: 15px; border: 1px solid #f0f0f0; border-radius: 12px; align-items: center; transition: 0.3s;" onmouseover="this.style.borderColor='greenyellow'">
+                        <div class="cart-item">
+                            <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
                             
-                            <img src="<%= item.productId.image %>" width="100" height="100" style="border-radius: 10px; object-fit: cover; background: #f9f9f9;">
-                            
-                            <div style="flex-grow: 1;">
-                                <h3 style="margin: 0; color: #333;"><%= item.productId.name %></h3>
-                                <p style="margin: 5px 0; color: #888; font-size: 14px;">Harga Satuan: $<%= item.productId.price %></p>
-                                <p style="margin: 5px 0; font-size: 14px;">Jumlah: <strong><%= item.qty %></strong></p>
-                            </div>
-
-                            <div style="text-align: right; min-width: 120px;">
-                                <p style="font-weight: bold; font-size: 18px; color: #333; margin: 0 0 10px 0;">$<%= item.productId.price * item.qty %></p>
+                            <div class="item-details">
+                                <h3><%= item.productId.name %></h3>
+                                <p class="item-price-info">Satuan: $<%= item.productId.price %> | Qty: <strong><%= item.qty %></strong></p>
                                 
-                                <form action="/shoppingCart/<%= item.productId._id %>/remove" method="POST">
-                                    <button type="submit" 
-                                        onmouseover="this.style.color='#c0392b'; this.style.textDecoration='underline'"
-                                        onmouseout="this.style.color='#e74c3c'; this.style.textDecoration='none'"
-                                        style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 13px; font-weight: 600; padding: 0; transition: 0.2s;">
-                                        🗑️ Hapus Item
+                                <form action="/shoppingCart/<%= item.productId._id %>/remove" method="POST" style="margin-top: 10px;">
+                                    <button type="submit" style="background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 13px; font-weight: 600; padding: 0;">
+                                        🗑️ Hapus
                                     </button>
                                 </form>
+                            </div>
+
+                            <div class="item-total-price">
+                                <span style="color: #888; font-size: 12px; display: none;" class="mobile-label">Subtotal:</span>
+                                <span style="font-weight: 800; font-size: 20px; color: #333;">$<%= item.productId.price * item.qty %></span>
                             </div>
                         </div>
                     <% } %>
                 <% }); %>
             </div>
 
-            <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #f0f2f5; display: flex; justify-content: flex-end;">
-                <div style="text-align: right; width: 100%; max-width: 300px;">
-                    <% 
-                       let total = user.cart.reduce((sum, item) => {
-                           return sum + (item.productId ? item.productId.price * item.qty : 0);
-                       }, 0);
-                    %>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                        <span style="color: #888; font-size: 18px;">Total Bayar:</span>
-                        <span style="font-size: 24px; font-weight: 800; color: #333;">$<%= total %></span>
-                    </div>
-
-                    <button onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='translateY(-2px)'"
-                            onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
-                            style="width: 100%; background-color: greenyellow; color: black; border: none; padding: 15px; border-radius: 12px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(173, 255, 47, 0.3);">
-                        Checkout Sekarang
-                    </button>
+            <div class="checkout-box">
+                <% 
+                    let total = user.cart.reduce((sum, item) => {
+                        return sum + (item.productId ? item.productId.price * item.qty : 0);
+                    }, 0);
+                %>
+                <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px; width: 100%; justify-content: flex-end;">
+                    <span style="color: #888; font-size: 18px;">Total Bayar:</span>
+                    <span style="font-size: 28px; font-weight: 800; color: #333;">$<%= total %></span>
                 </div>
+
+                <button class="btn-checkout">
+                    Checkout Sekarang
+                </button>
+                <p style="font-size: 12px; color: #aaa; margin-top: 10px;">Pajak dan biaya kirim akan dihitung di tahap akhir.</p>
             </div>
         <% } %>
     </div>

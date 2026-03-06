@@ -1,44 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=iXgIlTTMZtTO&format=png&color=000000" type="image/x-icon">
+    <title>Top Up Saldo | ShopDB</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .topup-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 { color: #333; margin: 0 0 10px 0; font-size: 24px; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 14px; }
+
+        .input-label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s ease;
+            text-align: center;
+            color: #333;
+        }
+
+        input:focus {
+            border-color: #adff2f;
+            background-color: #fafff0;
+        }
+
+        /* Quick Select Nominal */
+        .quick-select {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .nominal-btn {
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nominal-btn:hover {
+            border-color: #adff2f;
+            background: #fafff0;
+        }
+
+        .submit-btn {
+            background-color: #adff2f;
+            color: #000;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #81b201;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .back-link:hover { color: #333; }
+
+        @media (max-width: 480px) {
+            .topup-card { padding: 30px 20px; }
+        }
+    </style>
 </head>
 
-<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+<body>
 
-    <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center;">
-        
-        <h1 style="color: #333; margin-bottom: 10px;">Top Up Saldo</h1>
-        <p style="color: #666; margin-bottom: 30px;">Tambahkan dana ke akun Anda dengan mudah.</p>
+    <div class="topup-card">
+        <h1>Top Up Saldo</h1>
+        <p class="subtitle">Tambahkan dana ke akun Anda dengan mudah.</p>
 
-        <form action="/topup" method="POST" style="display: flex; flex-direction: column; align-items: stretch;">
-            
-            <div style="text-align: left; margin-bottom: 20px;">
-                <label for="amount" style="display: block; margin-bottom: 8px; font-weight: bold; color: #555;">Nominal Top Up ($)</label>
-                <input type="number" id="amount" name="amount" placeholder="Contoh: 500" required
-                    style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 8px; font-size: 16px; box-sizing: border-box; transition: border-color 0.3s;">
+        <form action="/topup" method="POST">
+            <label for="amount" class="input-label">Nominal Top Up ($)</label>
+            <input type="number" id="amount" name="amount" placeholder="0" required min="1">
+
+            <div class="quick-select">
+                <button type="button" class="nominal-btn" onclick="setAmount(10)">$10</button>
+                <button type="button" class="nominal-btn" onclick="setAmount(50)">$50</button>
+                <button type="button" class="nominal-btn" onclick="setAmount(100)">$100</button>
             </div>
 
-            <button type="submit" 
-                onmouseover="this.style.backgroundColor='#72a000'; this.style.transform='translateY(-2px)'"
-                onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
-                style="background-color: greenyellow; color: black; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 12px rgba(173, 255, 47, 0.4);">
+            <button type="submit" class="submit-btn">
                 Konfirmasi Top Up
             </button>
         </form>
 
-        <div style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px;">
-            <a href="/dashboard" 
-                onmouseover="this.style.color='#333'"
-                onmouseout="this.style.color='#808080'"
-                style="text-decoration: none; color: #808080; font-size: 14px; transition: 0.3s; font-weight: 500;">
-                ← Kembali ke Dashboard
-            </a>
-        </div>
+        <a href="/dashboard" class="back-link">← Kembali ke Dashboard</a>
     </div>
+
+    <script>
+        function setAmount(val) {
+            document.getElementById('amount').value = val;
+        }
+    </script>
 
 </body>
 

@@ -1,51 +1,177 @@
-<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=iXgIlTTMZtTO&format=png&color=000000" type="image/x-icon">
+    <title>Tambah Produk | Seller Center</title>
+    <style>
+        /* Base Reset */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 500px;">
-        
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="color: #333; margin: 0; font-size: 28px;">Tambah Produk</h1>
+        /* Form Card */
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Form Layout */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Row Layout untuk Harga & Stok */
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-row > div {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #adff2f;
+            background-color: #fbfff2;
+        }
+
+        /* Button & Actions */
+        .btn-submit {
+            background-color: #adff2f;
+            color: black;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #81b201;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            text-align: center;
+            text-decoration: none;
+            color: #888;
+            font-size: 14px;
+            padding: 10px;
+            transition: color 0.2s;
+        }
+
+        .btn-cancel:hover {
+            color: #333;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 480px) {
+            .form-card {
+                padding: 25px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-card">
+        <div class="header-section">
+            <h1 style="color: #333; margin: 0;">Tambah Produk</h1>
             <p style="color: #777; margin-top: 5px;">Isi detail produk yang ingin Anda jual.</p>
         </div>
 
-        <form action="/products" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+        <form action="/products" method="POST">
             
-            <div>
-                <label for="name" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Nama Produk</label>
-                <input type="text" id="name" name="name" placeholder="Masukkan nama produk..." required
-                    style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; transition: 0.3s; outline: none;">
+            <div class="input-group">
+                <label for="name">Nama Produk</label>
+                <input type="text" id="name" name="name" placeholder="Masukkan nama produk..." required>
             </div>
 
-            <div style="display: flex; gap: 15px;">
-                <div style="flex: 1;">
-                    <label for="price" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Harga ($)</label>
-                    <input type="number" id="price" name="price" placeholder="0" required
-                        style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
+            <div class="form-row">
+                <div>
+                    <label for="price">Harga ($)</label>
+                    <input type="number" id="price" name="price" placeholder="0" required min="0">
                 </div>
-                <div style="flex: 1;">
-                    <label for="qty" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Jumlah Stok</label>
-                    <input type="number" id="qty" name="qty" placeholder="0" required
-                        style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
+                <div>
+                    <label for="qty">Jumlah Stok</label>
+                    <input type="number" id="qty" name="qty" placeholder="0" required min="0">
                 </div>
             </div>
 
-            <div>
-                <label for="image" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">URL Gambar Produk</label>
-                <input type="text" id="image" name="image" placeholder="https://contoh.com/gambar.jpg" required
-                    style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
-                <small style="color: #999; display: block; margin-top: 5px;">Gunakan link gambar dari internet.</small>
+            <div class="input-group">
+                <label for="image">URL Gambar Produk</label>
+                <input type="url" id="image" name="image" placeholder="https://contoh.com/gambar.jpg" required>
+                <small style="color: #999; margin-top: 5px; font-size: 12px;">Pastikan link gambar valid dan dapat diakses publik.</small>
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-                <button type="submit" 
-                    onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='translateY(-2px)'"
-                    onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
-                    style="background-color: greenyellow; color: black; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4);">
+            <div style="display: flex; flex-direction: column; gap: 5px;">
+                <button type="submit" class="btn-submit">
                     Simpan Produk
                 </button>
-                
-                <a href="/products" style="text-align: center; text-decoration: none; color: #888; font-size: 14px; padding: 5px;">Batal</a>
+                <a href="/products" class="btn-cancel">Batal</a>
             </div>
         </form>
     </div>
 
 </body>
+</html>

@@ -137,7 +137,7 @@ app.post('/login', async (req, res) => {
     if (user && await bcrypt.compare(password, user.password)) {
 
         const token = jwt.sign({ id: user._id, username: user.username },
-            'secretkey', { expiresIn: '2h' });
+            process.env.JWT_SECRET, { expiresIn: '2h' });
 
         res.cookie('token', token,
             { httpOnly: true }, { maxAge: 2 * 60 * 60 * 1000 });

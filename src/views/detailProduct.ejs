@@ -1,36 +1,163 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+     <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=iXgIlTTMZtTO&format=png&color=000000" type="image/x-icon">
+    <title><%= product.name %> | Detail Produk</title>
+    <style>
+        /* Base Reset */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        /* Container Utama */
+        .product-card {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: row; 
+        }
+
+        /* Bagian Gambar */
+        .image-section {
+            flex: 1;
+            background-color: #fcfcfc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            border-right: 1px solid #f0f0f0;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .image-section img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Bagian Detail */
+        .details-section {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Badge & Seller */
+        .seller-badge {
+            background: #eef9e5;
+            color: #5b8a00;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Input & Button */
+        .qty-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .qty-input:focus {
+            border-color: #adff2f;
+        }
+
+        .buy-button {
+            background-color: #adff2f;
+            color: black;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .buy-button:hover {
+            background-color: #81b201;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* --- RESPONSIVE BREAKPOINT --- */
+        @media (max-width: 768px) {
+            .product-card {
+                flex-direction: column; 
+                margin: 20px 0;
+            }
+
+            .image-section {
+                border-right: none;
+                border-bottom: 1px solid #f0f0f0;
+                padding: 20px;
+            }
+
+            .details-section {
+                padding: 25px;
+            }
+
+            .price-tag {
+                font-size: 30px !important;
+            }
+        }
+    </style>
 </head>
 
-<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+<body>
 
-    <div style="max-width: 900px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-wrap: wrap;">
+    <div class="product-card">
         
-        <div style="flex: 1; min-width: 350px; background-color: #fcfcfc; display: flex; align-items: center; justify-content: center; padding: 40px; border-right: 1px solid #f0f0f0;">
-            <img src="<%= product.image %>" alt="<%= product.name %>" 
-                style="max-width: 100%; height: auto; border-radius: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05);"
-                onmouseover="this.style.transform='scale(1.05)'">
+        <div class="image-section">
+            <img src="<%= product.image %>" alt="<%= product.name %>">
         </div>
 
-        <div style="flex: 1; min-width: 350px; padding: 50px; display: flex; flex-direction: column; justify-content: center;">
+        <div class="details-section">
             
             <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-                <span style="background: #eef9e5; color: #5b8a00; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase;">
-                    Verified Seller
-                </span>
-                <span style="color: #888; font-size: 14px;">@<%= product.seller.username %></span>
+                <span class="seller-badge">Verified Seller</span>
+                <span style="color: #888; font-size: 13px;">@<%= product.seller.username %></span>
             </div>
 
-            <h1 style="margin: 0; color: #333; font-size: 32px; line-height: 1.2;"><%= product.name %></h1>
+            <h1 style="margin: 0; color: #333; font-size: 28px; line-height: 1.2;"><%= product.name %></h1>
             
-            <div style="margin: 25px 0;">
-                <span style="font-size: 36px; font-weight: 800; color: #333;">$<%= product.price %></span>
-                <p style="color: #777; margin-top: 5px;">Tersedia stok: <strong><%= product.qty %> unit</strong></p>
+            <div style="margin: 20px 0;">
+                <span class="price-tag" style="font-size: 36px; font-weight: 800; color: #333;">$<%= product.price %></span>
+                <p style="color: #777; margin-top: 5px; font-size: 14px;">Stok tersedia: <strong><%= product.qty %> unit</strong></p>
             </div>
 
             <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
@@ -38,15 +165,11 @@
             <form action="/products/detailProduct/<%= product._id %>/buy" method="POST">
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     <div>
-                        <label style="display: block; font-size: 14px; font-weight: 600; color: #555; margin-bottom: 8px;">Tentukan Jumlah:</label>
-                        <input type="number" name="qty" value="1" min="1" max="<%= product.qty %>" required
-                            style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; box-sizing: border-box; outline: none; transition: 0.3s;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: #555; margin-bottom: 8px;">Jumlah Pembelian:</label>
+                        <input type="number" name="qty" class="qty-input" value="1" min="1" max="<%= product.qty %>" required>
                     </div>
 
-                    <button type="submit" 
-                        onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='translateY(-2px)'"
-                        onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
-                        style="background-color: greenyellow; color: black; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <button type="submit" class="buy-button">
                         <span>🛒</span> Buy Product Now
                     </button>
                 </div>
@@ -60,5 +183,4 @@
     </div>
 
 </body>
-
 </html>
