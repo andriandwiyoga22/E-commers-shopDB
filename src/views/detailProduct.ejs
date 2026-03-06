@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+
+    <div style="max-width: 900px; width: 100%; background: white; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-wrap: wrap;">
+        
+        <div style="flex: 1; min-width: 350px; background-color: #fcfcfc; display: flex; align-items: center; justify-content: center; padding: 40px; border-right: 1px solid #f0f0f0;">
+            <img src="<%= product.image %>" alt="<%= product.name %>" 
+                style="max-width: 100%; height: auto; border-radius: 10px; transition: 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.05);"
+                onmouseover="this.style.transform='scale(1.05)'">
+        </div>
+
+        <div style="flex: 1; min-width: 350px; padding: 50px; display: flex; flex-direction: column; justify-content: center;">
+            
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
+                <span style="background: #eef9e5; color: #5b8a00; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase;">
+                    Verified Seller
+                </span>
+                <span style="color: #888; font-size: 14px;">@<%= product.seller.username %></span>
+            </div>
+
+            <h1 style="margin: 0; color: #333; font-size: 32px; line-height: 1.2;"><%= product.name %></h1>
+            
+            <div style="margin: 25px 0;">
+                <span style="font-size: 36px; font-weight: 800; color: #333;">$<%= product.price %></span>
+                <p style="color: #777; margin-top: 5px;">Tersedia stok: <strong><%= product.qty %> unit</strong></p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 25px;">
+
+            <form action="/products/detailProduct/<%= product._id %>/buy" method="POST">
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: #555; margin-bottom: 8px;">Tentukan Jumlah:</label>
+                        <input type="number" name="qty" value="1" min="1" max="<%= product.qty %>" required
+                            style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; box-sizing: border-box; outline: none; transition: 0.3s;">
+                    </div>
+
+                    <button type="submit" 
+                        onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
+                        style="background-color: greenyellow; color: black; padding: 16px; border: none; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <span>🛒</span> Buy Product Now
+                    </button>
+                </div>
+            </form>
+
+            <a href="/" style="text-align: center; margin-top: 25px; text-decoration: none; color: #999; font-size: 14px; font-weight: 500; transition: 0.3s;"
+               onmouseover="this.style.color='#333'">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>

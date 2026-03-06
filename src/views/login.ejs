@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+    <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 380px; text-align: center;">
+        
+        <h1 style="color: #333; margin-bottom: 5px;">Welcome Back</h1>
+        <p style="color: #666; margin-bottom: 30px; font-size: 14px;">Silakan masuk ke akun ShopDB Anda.</p>
+
+        <form action="/login" method="POST" style="display: flex; flex-direction: column; text-align: left;">
+            
+            <div style="margin-bottom: 15px;">
+                <label for="username" style="display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 14px;">Username</label>
+                <input type="text" id="username" name="username" placeholder="Masukkan username" required
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; box-sizing: border-box; outline: none; transition: 0.3s;">
+            </div>
+
+            <div style="margin-bottom: 25px;">
+                <label for="password" style="display: block; margin-bottom: 8px; font-weight: 600; color: #555; font-size: 14px;">Password</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan password" required
+                    style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 15px; box-sizing: border-box; outline: none; transition: 0.3s;">
+            </div>
+
+            <button type="submit" 
+                onmouseover="this.style.backgroundColor='#72a000'; this.style.transform='translateY(-1px)'"
+                onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
+                style="background-color: greenyellow; color: black; padding: 12px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(173, 255, 47, 0.3);">
+                Login Sekarang
+            </button>
+        </form>
+
+        <p style="margin-top: 25px; font-size: 14px; color: #666;">
+            Belum punya akun? 
+            <a href="/register" style="color: #4CAF50; text-decoration: none; font-weight: bold;">Daftar di sini</a>
+        </p>
+    </div>
+
+</body>
+</html>

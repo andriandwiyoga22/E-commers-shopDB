@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="font-family: 'Segoe UI', sans-serif; background-color: #f8f9fa; margin: 0; padding: 40px;">
+
+    <div style="max-width: 1000px; margin: auto; display: flex; flex-direction: column; align-items: center;">
+        
+        <h1 style="color: #333; margin-bottom: 20px;">My Inventory</h1>
+        
+        <div style="margin-bottom: 40px; display: flex; gap: 15px;">
+            <a href="/products/newProduct" 
+                onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='scale(1.05)'"
+                onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='scale(1)'"
+                style="text-decoration: none; background-color: greenyellow; padding: 10px 25px; border-radius: 8px; transition: 0.3s; color: black; font-weight: bold; box-shadow: 0 4px 12px rgba(0,0,0,0.1); display: flex; align-items: center;">
+                + Tambah Produk Baru
+            </a>
+            <a href="/dashboard" 
+                onmouseover="this.style.backgroundColor='#666'"
+                onmouseout="this.style.backgroundColor='#808080'"
+                style="text-decoration: none; background-color: #808080; padding: 10px 25px; border-radius: 8px; transition: 0.3s; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                Dashboard
+            </a>
+        </div>
+
+        <% if (products.length === 0) { %>
+            <div style="background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center; width: 100%;">
+                <p style="color: #888; font-size: 18px;">Belum ada produk yang kamu jual.</p>
+            </div>
+        <% } %>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; width: 100%;">
+            <% products.forEach(product => { %>
+                <div style="background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 6px 15px rgba(0,0,0,0.08); transition: 0.3s; border: 1px solid #eee;">
+                    
+                    <div style="height: 180px; overflow: hidden; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                        <img src="<%= product.image %>" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+
+                    <div style="padding: 20px; text-align: left;">
+                        <h3 style="margin: 0 0 10px 0; color: #333; font-size: 18px; height: 45px; overflow: hidden;"><%= product.name %></h3>
+                        <p style="margin: 0; color: #2ecc71; font-weight: bold; font-size: 20px;">$<%= product.price %></p>
+                        <p style="margin: 5px 0 15px 0; color: #7f8c8d; font-size: 14px;">Stok: <%= product.qty %></p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <a href="/products/detailProduct/<%= product._id %>"
+                                style="text-decoration: none; background-color: #f1f2f6; color: #333; padding: 8px; text-align: center; border-radius: 6px; font-size: 14px; font-weight: 500; transition: 0.3s;">
+                                Lihat Detail
+                            </a>
+                            <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('Hapus produk ini?')">
+                                <button type="submit"
+                                    onmouseover="this.style.backgroundColor='#c0392b'"
+                                    onmouseout="this.style.backgroundColor='#e74c3c'"
+                                    style="background-color: #e74c3c; width: 100%; padding: 8px; border-radius: 6px; border: none; color: white; cursor: pointer; font-size: 14px; transition: 0.3s;">
+                                    Hapus Produk
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+</body>
+
+</html>

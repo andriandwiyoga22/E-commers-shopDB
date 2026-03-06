@@ -1,0 +1,51 @@
+<body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;">
+
+    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 100%; max-width: 500px;">
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <h1 style="color: #333; margin: 0; font-size: 28px;">Tambah Produk</h1>
+            <p style="color: #777; margin-top: 5px;">Isi detail produk yang ingin Anda jual.</p>
+        </div>
+
+        <form action="/products" method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+            
+            <div>
+                <label for="name" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Nama Produk</label>
+                <input type="text" id="name" name="name" placeholder="Masukkan nama produk..." required
+                    style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; transition: 0.3s; outline: none;">
+            </div>
+
+            <div style="display: flex; gap: 15px;">
+                <div style="flex: 1;">
+                    <label for="price" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Harga ($)</label>
+                    <input type="number" id="price" name="price" placeholder="0" required
+                        style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
+                </div>
+                <div style="flex: 1;">
+                    <label for="qty" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">Jumlah Stok</label>
+                    <input type="number" id="qty" name="qty" placeholder="0" required
+                        style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
+                </div>
+            </div>
+
+            <div>
+                <label for="image" style="display: block; font-weight: 600; margin-bottom: 8px; color: #555;">URL Gambar Produk</label>
+                <input type="text" id="image" name="image" placeholder="https://contoh.com/gambar.jpg" required
+                    style="width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 10px; font-size: 15px; box-sizing: border-box; outline: none;">
+                <small style="color: #999; display: block; margin-top: 5px;">Gunakan link gambar dari internet.</small>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+                <button type="submit" 
+                    onmouseover="this.style.backgroundColor='#81b201'; this.style.transform='translateY(-2px)'"
+                    onmouseout="this.style.backgroundColor='#adff2f'; this.style.transform='translateY(0)'"
+                    style="background-color: greenyellow; color: black; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 15px rgba(173, 255, 47, 0.4);">
+                    Simpan Produk
+                </button>
+                
+                <a href="/products" style="text-align: center; text-decoration: none; color: #888; font-size: 14px; padding: 5px;">Batal</a>
+            </div>
+        </form>
+    </div>
+
+</body>
