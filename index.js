@@ -226,15 +226,6 @@ app.post('/products/detailProduct/:id/buy', auth, async (req, res) => {
     res.status(201).redirect('/');
 });
 
-// Controller for Topup
-app.post('/topup', auth, async (req, res) => {
-    const { amount } = req.body;
-    const user = await User.findById(req.user.id);
-    user.money += parseInt(amount);
-    await user.save();
-    res.status(200).redirect('/dashboard');
-});
-
 app.post('/shoppingCart', auth, async (req, res) => {
     const { productId } = req.body;
     const userId = req.user.id;
@@ -283,6 +274,17 @@ app.post('/shoppingCart/:productId/remove', auth, async (req, res) => {
         res.status(500).send("Gagal: " + err.message);
     }
 });
+
+// Controller for User Topup
+app.post('/topup', auth, async (req, res) => {
+    const { amount } = req.body;
+    const user = await User.findById(req.user.id);
+    user.money += parseInt(amount);
+    await user.save();
+    res.status(200).redirect('/dashboard');
+});
+
+
 
 
 
